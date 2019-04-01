@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+   <!--
+    Enable this feature
+   <properties resource="org/mybatis/example/config.properties">
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+    </properties>
+
+    <dataSource type="POOLED">
+        <property name="username" value="${db:username?:ut_user}"/>
+    </dataSource>-->
+
+    <properties resource="mybatis/jdbc.properties" />
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25"/>
+        <setting name="defaultFetchSize" value="100"/>
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+
+
+<!--
+        logImpl可选的值有：SLF4J、LOG4J、LOG4J2、JDK_LOGGING、COMMONS_LOGGING、STDOUT_LOGGING、NO_LOGGING 或者是实现了接口org.apache.ibatis.logging.Log的类的完全限定类名，
+        并且这个类的构造函数需要是以一个字符串（String类型）为参数的。 （可以参考org.apache.ibatis.logging.slf4j.Slf4jImpl.java的实现）
+-->
+
+        <setting name="logImpl" value="LOG4J"/>
+
+        <!--
+        set Languag
+        -->
+        <setting name="defaultScriptingLanguage" value="myLanguage"/>
+
+
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="authorBean" type="com.mybatis.author.Author"/>
+        <typeAlias alias="blogBean" type="com.mybatis.blog.Blog"/>
+        <typeAlias alias="postBean" type="com.mybatis.post.Post"/>
+        <typeAlias alias="commentBean" type="com.mybatis.comment.Comment"/>
+        <typeAlias alias="tagBean" type="com.mybatis.tag.Tag"/>
+        <typeAlias alias="draftPostgBean" type="com.mybatis.post.draft.DraftPost"/>
+        <typeAlias alias="myLanguage" type="com.mybatis.utils.MyLanguageDriver"/>
+        <typeAlias type="org.sample.MyLanguageDriver" alias="myLanguage"/>
+
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="com.mybatis.utils.ExampleTypeHandler"/>
+        <!--
+        AUTO IMP
+         <package name="com.mybatis.utils"/>
+        -->
+    </typeHandlers>
+
+    <objectFactory type="com.mybatis.utils.ExampleObjectFactory">
+        <property name="tmpValue" value="100"/>
+    </objectFactory>
+
+    <plugins>
+        <plugin interceptor="com.mybatis.utils.ExamplePlugin">
+            <property name="someProperty" value="100"/>
+        </plugin>
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+
+            <!--为了令其工作，为每个需要 MyBatis 调用的 setter 方法中增加一个属性。下面是一个可以连接至 PostgreSQL 数据库的例子：
+
+            <dataSource type="com.mybatis.utils.C3P0DataSourceFactory">
+                <property name="driver" value="org.postgresql.Driver"/>
+                <property name="url" value="jdbc:postgresql:mydb"/>
+                <property name="username" value="postgres"/>
+                <property name="password" value="root"/>
+            </dataSource>-->
+
+        </environment>
+    </environments>
+
+
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="Mysql" value="mysql" />
+        <!--<property name="SQL Server" value="sqlserver"/>
+        <property name="DB2" value="db2"/>
+        <property name="Oracle" value="oracle" />-->
+    </databaseIdProvider>
+
+    <mappers>
+        <mapper resource="com/mybatis/blog/BlogMapper.xml"/>
+        <mapper resource="com/mybatis/author/AuthorMapper.xml"/>
+
+       <!-- <mapper url="file:///var/mappers/BlogMapper.xml"/>
+        <mapper class="org.mybatis.builder.AuthorMapper"/>
+        <package name="org.mybatis.builder"/>-->
+    </mappers>
+
+</configuration>
+
+<!--
+
+   XML 配置文件（configuration XML）中包含了对 MyBatis 系统的核心设置，包含获取数据库连接实例的数据源（DataSource）和决定事务作用域和控制方式的事务管理器（TransactionManager）。
+ -->

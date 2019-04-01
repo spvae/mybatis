@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <suite name="Suite1" verbose="1">
+            <test name="Regression1">
+                <classes>
+                   <!-- <class name="mvnTest.junit.RandomGeneratorTest"></class>-->
+                    <class name="mvnTest.junit.RandomGeneratorTest"></class>
+                </classes>
+            </test>
+        </suite>

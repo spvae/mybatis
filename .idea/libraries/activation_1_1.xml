@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="activation-1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/activation-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/activemq-all-5.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/core-2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/core-wsa2-2.4-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/core-wsa2-integration-1.1-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fastjson-1.1.33.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jedis-2.5.0-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mongo-java-driver-2.13.0-rc0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

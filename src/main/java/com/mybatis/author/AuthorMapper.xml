@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mybatis.author.IAuthorMapper">
+
+    <resultMap id="authorResultMap" type="authorBean">
+        <id property="id" column="id" />
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+
+
+    <sql id="userColumns"> ${alias}.id,${alias}.username,${alias}.password </sql>
+
+    <select id="selectAllAuthorAndBlog" resultType="map">
+        select
+        <include refid="userColumns"><property name="alias" value="t1"/></include>,
+        <include refid="userColumns"><property name="alias" value="t2"/></include>
+        from author t1
+        cross join blog t2 on t1.pkid = t2.refpkid;
+    </select>
+
+    <select id="selectAuthors" resultType="map">
+        select id as "id" ,username as "username" , password,email,bio  from Author  ORDER BY ${id} desc
+    </select>
+
+<!--
+    <select id="selectAuthor" resultType="authorBean">
+        select id as "id" ,username as "username" , password,email,bio from Author where id = #{id}  ORDER BY ${id} desc
+    </select>
+  -->
+    <select id="selectAuthor" resultType="authorResultMap">
+        select id as "id" ,username as "username" , password,email,bio from Author where id = #{id}  ORDER BY ${id} desc
+    </select>
+
+<!--
+    bind 元素可以从 OGNL 表达式中创建一个变量并将其绑定到上下文。比如：
+-->
+
+    <update id="updateAuthorIfNecessary">
+        update Author
+        <set>
+            <if test="username != null">username=#{username},</if>
+            <if test="password != null">password=#{password},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="bio != null">bio=#{bio}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <insert
+            id="insertAuthor"
+            parameterType="authorBean"
+            flushCache="true"
+            statementType="PREPARED"
+            keyProperty=""
+            keyColumn=""
+            useGeneratedKeys="true"
+            timeout="20"/>
+
+    <update
+            id="updateAuthor"
+            parameterType="authorBean"
+            flushCache="true"
+            statementType="PREPARED"
+            timeout="20"/>
+
+    <delete
+            id="deleteAuthor"
+            parameterType="authorBean"
+            flushCache="true"
+            statementType="PREPARED"
+            timeout="20"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <insert id="insertAuthor" useGeneratedKeys="true"  keyProperty="id">
+        insert into Author (id,username,password,email,bio)
+        values (#{id},#{username},#{password},#{email,jdbcType=VARCHAR},#{bio,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertAuthors" useGeneratedKeys="true"  keyProperty="id">
+        insert into Author (username, password, email, bio) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.username}, #{item.password}, #{item.email}, #{item.bio})
+        </foreach>
+    </insert>
+
+<!--
+    <insert id="insertAuthorNotAutoPrimarykey">
+        <selectKey keyProperty="id"  resultType="int"  order="BEFORE" statementType="PREPARED"/>
+
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1
+        </selectKey>
+        insert into Author
+        (id, username, password, email,bio, favourite_section)
+        values
+        (#{id}, #{username}, #{password}, #{email}, #{bio}, #{favouriteSection,jdbcType=VARCHAR})
+    </insert>
+-->
+
+    <update id="updateAuthor">
+        update Author set
+        username = #{username},
+        password = #{password},
+        email = #{email},
+        bio = #{bio}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAuthor">
+        delete from Author where id = #{id}
+    </delete>
+
+
+</mapper>
+
+
+

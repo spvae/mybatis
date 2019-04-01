@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.itelg:xpath-helper:0.4.6-RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/m2/repository/com/itelg/xpath-helper/0.4.6-RELEASE/xpath-helper-0.4.6-RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/m2/repository/com/itelg/xpath-helper/0.4.6-RELEASE/xpath-helper-0.4.6-RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/m2/repository/com/itelg/xpath-helper/0.4.6-RELEASE/xpath-helper-0.4.6-RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
